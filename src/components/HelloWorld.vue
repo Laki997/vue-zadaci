@@ -1,10 +1,15 @@
 <template>
   <div class="hello">
-    <ul>
-      <li v-for="item in items" :key="item">
-        {{ item.vrsta }} {{ item.ime }} {{ item.datumRodjenja }}
-      </li>
-    </ul>
+    <div v-for="(item, index) in items" :key="index">
+      <ul>
+        <div v-if="item.datumRodjenja !== ''">
+          <li>{{ item.vrsta }} {{ item.ime }} {{ item.datumRodjenja }}</li>
+        </div>
+        <div v-else-if="item.datumRodjenja === null">
+          <li>{{ item.vrsta }} {{ item.ime }} Nepoznat</li>
+        </div>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -27,7 +32,7 @@ export default {
         {
           vrsta: "pas",
           ime: "bane",
-          datumRodjenja: Date.now(),
+          // datumRodjenja: Date.now(),
         },
         {
           vrsta: "krokodil",
