@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <div>
-      <form id="app" v-on:submit.prevent="onSubmit">
+      <form name="app" v-on:submit.prevent="onSubmit">
         Vrsta<input
           type="text"
           id="vrsta"
@@ -15,13 +15,9 @@
           v-model="items.datumRodjenja"
           name="items.datumRodjenja"
         />
-        <select v-model="selected">
-          <option
-            v-for="sector in sectors"
-            :key="sector"
-            v-bind:value="sector.value"
-          >
-            {{ sector.vrsta }}
+        <select v-model="items.sector">
+          <option v-for="sector in sectors" :key="sector">
+            {{ sector }}
           </option>
         </select>
         <button type="submit">Add Animal</button>
@@ -35,7 +31,7 @@
             <button @click="removeElement(index)">Remove</button>
             <li v-if="item.datumRodjenja !== undefined">
               {{ item.vrsta }} {{ item.ime }} {{ item.datumRodjenja }}
-              {{ item.sectors }}
+              {{ item.sector }}
             </li>
 
             <li v-if="item.datumRodjenja === undefined">
@@ -58,39 +54,35 @@ export default {
           vrsta: "lav",
           ime: "lazar",
           datumRodjenja: new Date("2012-02-03"),
-          sectors: "",
+          sector: "",
         },
         {
           vrsta: "macka",
           ime: "milos",
           datumRodjenja: new Date("2012-02-03"),
-          sectors: "",
+          sector: "",
         },
         {
           vrsta: "pas",
           ime: "bane",
           // datumRodjenja: Date.now(),
-          sectors: "",
+          sector: "",
         },
         {
           vrsta: "krokodil",
           ime: "nemanja",
           datumRodjenja: new Date("2012-02-03"),
-          sectors: "",
+          sector: "",
         },
         {
           vrsta: "zec",
           ime: "dragan",
           datumRodjenja: new Date("2012-02-03"),
-          sectors: "",
+          sector: "",
         },
       ],
-      selected: ["macka", "ptica", "zmija"],
-      sectors: [
-        { vrsta: "macka", value: "macka" },
-        { vrsta: "ptica", value: "ptica" },
-        { vrsta: "zmija", value: "zmija" },
-      ],
+
+      sectors: ["zmije", "ptice", "macke"],
     };
   },
   methods: {
@@ -108,16 +100,21 @@ export default {
         vrsta: this.items.vrsta,
         ime: this.items.ime,
         datumRodjenja: this.items.datumRodjenja,
-        sekctors: this.sectors.selected,
+        sector: this.items.sector,
       };
 
+      let frm = document.getElementsByName("app")[0];
+      frm.reset();
+
       this.items.push(item);
+
+      console.log(item);
     },
-    nullItems: function() {
-      return this.items.filter(function(item) {
-        return item[2] === null;
-      });
-    },
+    // nullItems: function() {
+    //   return this.items.filter(function(item) {
+    //     return item[2] === null;
+    //   });
+    // },
   },
 };
 </script>
