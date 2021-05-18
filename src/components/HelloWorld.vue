@@ -41,6 +41,15 @@
         </div>
       </ul>
     </div>
+
+    <form name="zivotinje">
+      <ul v-for="sector in sectors" :key="sector">
+        <button @click="vidiListuZivotinja(sector)">
+          Vidi listu zivotinja
+        </button>
+        <li>{{ sector }}</li>
+      </ul>
+    </form>
   </div>
 </template>
 
@@ -54,31 +63,31 @@ export default {
           vrsta: "lav",
           ime: "lazar",
           datumRodjenja: new Date("2012-02-03"),
-          sector: "",
+          sector: "ptice",
         },
         {
           vrsta: "macka",
           ime: "milos",
           datumRodjenja: new Date("2012-02-03"),
-          sector: "",
+          sector: "macke",
         },
         {
           vrsta: "pas",
           ime: "bane",
           // datumRodjenja: Date.now(),
-          sector: "",
+          sector: "zmije",
         },
         {
           vrsta: "krokodil",
           ime: "nemanja",
           datumRodjenja: new Date("2012-02-03"),
-          sector: "",
+          sector: "zmije",
         },
         {
           vrsta: "zec",
           ime: "dragan",
           datumRodjenja: new Date("2012-02-03"),
-          sector: "",
+          sector: "macke",
         },
       ],
 
@@ -109,6 +118,18 @@ export default {
       this.items.push(item);
 
       console.log(item);
+    },
+
+    vidiListuZivotinja(sectors) {
+      let zivotinja = this.items.filter(({ sector }) => {
+        console.log(sectors);
+        return sectors === sector;
+      });
+
+      var names = zivotinja.reduce(function(a, b) {
+        return a.ime || a + "," + b.ime;
+      });
+      alert(names);
     },
     // nullItems: function() {
     //   return this.items.filter(function(item) {
