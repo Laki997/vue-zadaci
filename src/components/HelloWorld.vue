@@ -1,15 +1,19 @@
 <template>
   <div class="hello">
     <div>
-      <form @submit="onSubmit()">
-        Vrsta <input type="text" name="" id="vrsta" /> Ime<input
+      <form id="app" v-on:submit.prevent="onSubmit">
+        Vrsta<input
           type="text"
-          id="ime"
+          id="vrsta"
+          v-model="items.vrsta"
+          name="items.vrsta"
         />
+        Ime<input type="text" id="ime" v-model="items.ime" name="items.ime" />
         Datum rodjenja<input
           type="text"
           id="datumRodjenja"
-          name="datumRodjenja"
+          v-model="items.datumRodjenja"
+          name="items.datumRodjenja"
         />
         <button type="submit">Add Animal</button>
       </form>
@@ -83,11 +87,13 @@ export default {
       prvi === bubble;
     },
     onSubmit() {
-      let vrsta = document.getElementById("#vrsta");
-      let ime = document.getElementById("#ime");
-      let godine = document.getElementById("#godine");
-      console.log(vrsta, ime, godine);
-      this.items.push(vrsta, ime, godine);
+      let item = {
+        vrsta: this.items.vrsta,
+        ime: this.items.ime,
+        datumRodjenja: this.items.datumRodjenja,
+      };
+
+      this.items.push(item);
     },
     nullItems: function() {
       return this.items.filter(function(item) {
