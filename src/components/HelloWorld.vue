@@ -1,16 +1,33 @@
 <template>
   <div class="hello">
+    <div>
+      <form @submit="onSubmit()">
+        Vrsta <input type="text" name="" id="vrsta" /> Ime<input
+          type="text"
+          id="ime"
+        />
+        Datum rodjenja<input
+          type="text"
+          id="datumRodjenja"
+          name="datumRodjenja"
+        />
+        <button type="submit">Add Animal</button>
+      </form>
+    </div>
     <div v-for="(item, index) in items" :key="index">
       <ul>
-        <div v-if="item.datumRodjenja !== null">
+        <div>
           <div>
-            <button @click="removeElement(item)">Remove</button>
-            <button type="submit">Move to top</button>
-            <li>{{ item.vrsta }} {{ item.ime }} {{ item.datumRodjenja }}</li>
+            <button @click="moveElement(index)">Move to top</button>
+            <button @click="removeElement(index)">Remove</button>
+            <li v-if="item.datumRodjenja !== undefined">
+              {{ item.vrsta }} {{ item.ime }} {{ item.datumRodjenja }}
+            </li>
+
+            <li v-if="item.datumRodjenja === undefined">
+              {{ item.vrsta }} {{ item.ime }} Nepoznat
+            </li>
           </div>
-        </div>
-        <div v-else-if="item.datumRodjenja === null">
-          <li>{{ item.vrsta }} {{ item.ime }} Nepoznat</li>
         </div>
       </ul>
     </div>
@@ -54,6 +71,28 @@ export default {
   methods: {
     removeElement: function(index) {
       this.items.splice(index, 1);
+    },
+    moveElement: function(index) {
+      let prvi = this.items[0];
+      console.log(prvi);
+      let element = this.items[index];
+      console.log(element);
+      let bubble;
+      bubble === element;
+      element === prvi;
+      prvi === bubble;
+    },
+    onSubmit() {
+      let vrsta = document.getElementById("#vrsta");
+      let ime = document.getElementById("#ime");
+      let godine = document.getElementById("#godine");
+      console.log(vrsta, ime, godine);
+      this.items.push(vrsta, ime, godine);
+    },
+    nullItems: function() {
+      return this.items.filter(function(item) {
+        return item[2] === null;
+      });
     },
   },
 };
