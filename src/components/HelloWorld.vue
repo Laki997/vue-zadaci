@@ -15,6 +15,15 @@
           v-model="items.datumRodjenja"
           name="items.datumRodjenja"
         />
+        <select v-model="selected">
+          <option
+            v-for="sector in sectors"
+            :key="sector"
+            v-bind:value="sector.value"
+          >
+            {{ sector.vrsta }}
+          </option>
+        </select>
         <button type="submit">Add Animal</button>
       </form>
     </div>
@@ -26,6 +35,7 @@
             <button @click="removeElement(index)">Remove</button>
             <li v-if="item.datumRodjenja !== undefined">
               {{ item.vrsta }} {{ item.ime }} {{ item.datumRodjenja }}
+              {{ item.sectors }}
             </li>
 
             <li v-if="item.datumRodjenja === undefined">
@@ -48,27 +58,38 @@ export default {
           vrsta: "lav",
           ime: "lazar",
           datumRodjenja: new Date("2012-02-03"),
+          sectors: "",
         },
         {
           vrsta: "macka",
           ime: "milos",
           datumRodjenja: new Date("2012-02-03"),
+          sectors: "",
         },
         {
           vrsta: "pas",
           ime: "bane",
           // datumRodjenja: Date.now(),
+          sectors: "",
         },
         {
           vrsta: "krokodil",
           ime: "nemanja",
           datumRodjenja: new Date("2012-02-03"),
+          sectors: "",
         },
         {
           vrsta: "zec",
           ime: "dragan",
           datumRodjenja: new Date("2012-02-03"),
+          sectors: "",
         },
+      ],
+      selected: ["macka", "ptica", "zmija"],
+      sectors: [
+        { vrsta: "macka", value: "macka" },
+        { vrsta: "ptica", value: "ptica" },
+        { vrsta: "zmija", value: "zmija" },
       ],
     };
   },
@@ -77,20 +98,17 @@ export default {
       this.items.splice(index, 1);
     },
     moveElement: function(index) {
-      let prvi = this.items[0];
-      console.log(prvi);
       let element = this.items[index];
-      console.log(element);
-      let bubble;
-      bubble === element;
-      element === prvi;
-      prvi === bubble;
+
+      this.items.splice(index, 1);
+      this.items.unshift(element);
     },
     onSubmit() {
       let item = {
         vrsta: this.items.vrsta,
         ime: this.items.ime,
         datumRodjenja: this.items.datumRodjenja,
+        sekctors: this.sectors.selected,
       };
 
       this.items.push(item);
