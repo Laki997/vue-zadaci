@@ -2,8 +2,12 @@
   <div class="hello">
     <div v-for="(item, index) in items" :key="index">
       <ul>
-        <div v-if="item.datumRodjenja !== ''">
-          <li>{{ item.vrsta }} {{ item.ime }} {{ item.datumRodjenja }}</li>
+        <div v-if="item.datumRodjenja !== null">
+          <div>
+            <button @click="removeElement(item)">Remove</button>
+            <button type="submit">Move to top</button>
+            <li>{{ item.vrsta }} {{ item.ime }} {{ item.datumRodjenja }}</li>
+          </div>
         </div>
         <div v-else-if="item.datumRodjenja === null">
           <li>{{ item.vrsta }} {{ item.ime }} Nepoznat</li>
@@ -22,12 +26,12 @@ export default {
         {
           vrsta: "lav",
           ime: "lazar",
-          datumRodjenja: Date.now(),
+          datumRodjenja: new Date("2012-02-03"),
         },
         {
           vrsta: "macka",
           ime: "milos",
-          datumRodjenja: Date.now(),
+          datumRodjenja: new Date("2012-02-03"),
         },
         {
           vrsta: "pas",
@@ -37,17 +41,21 @@ export default {
         {
           vrsta: "krokodil",
           ime: "nemanja",
-          datumRodjenja: Date.now(),
+          datumRodjenja: new Date("2012-02-03"),
         },
         {
           vrsta: "zec",
           ime: "dragan",
-          datumRodjenja: Date.now(),
+          datumRodjenja: new Date("2012-02-03"),
         },
       ],
     };
   },
-  methods: {},
+  methods: {
+    removeElement: function(index) {
+      this.items.splice(index, 1);
+    },
+  },
 };
 </script>
 
